@@ -1,6 +1,16 @@
-const setSelectedNode = (node) => ({
-    type: 'SELECT_ID',
-    payload: node
-});
+const initState = {
+    id: null,
+    label: '',
+    ip: '',
+    port: 0
+};
 
-export default setSelectedNode;
+const nodesReducer = (state = initState, action) => {
+    if (action.type === 'SELECT_ID') {
+        return action.payload;
+    } else {
+        return state;
+    }
+}
+
+export default nodesReducer;

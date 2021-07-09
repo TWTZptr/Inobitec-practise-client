@@ -1,9 +1,43 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import setSelectedNode from '../redux/actions/nodes';
 import '../scss/info-block.scss';
 
 function InfoBlock() {
-    const {id, ip, port, name} = useSelector(node => node);
+    let {ip, label, id, port} = useSelector(node => node);
+
+    const [localState, setLocalState] = React.useState({ip, label, id, port});
+
+    React.useEffect(() => {
+        setLocalState({ip, label, id, port});
+    }, [ip, label, id, port]);
+
+    const dispatch = useDispatch();
+    const cancelButtonHandler = (event) => {
+        dispatch(setSelectedNode({id: null, label, ip, port}));
+    };
+
+    const applyButtonHandler = (event) => {
+        console.log('apply');
+    };
+
+    const handleLabelChange = (event) => {
+        setLocalState((prevState) => {
+            return {...prevState, label: event.target.value};
+        });
+    };
+
+    const handleIpChange = (event) => {
+        setLocalState((prevState) => {
+            return {...prevState, ip: event.target.value};
+        });
+    }
+
+    const handlePortChange = (event) => {
+        setLocalState((prevState) => {
+            return {...prevState, port: event.target.value};
+        });
+    }
 
     return (
         id === null ?
@@ -13,28 +47,27 @@ function InfoBlock() {
             <div className="info-block">
                 <div className="node-info">
                     <label className="node-info__field">
-                        Имя:
-                        <input value={name}/>
+                        <div> Имя: </div>
+                        <input value={localState.label} onChange={handleLabelChange}/>
                     </label>
                     <label className="node-info__field">
-                        IP:
-                        <input value={ip}/>
+                        <div>IP:</div>
+                        <input value={localState.ip} onChange={handleIpChange}/>
                     </label>
                     <label className="node-info__field">
-                        Port:
-                        <input value={port}/>
+                        <div>Port:</div>
+                        <input value={localState.port} onChange={handlePortChange}/>
                     </label>
                 </div>
                 <div className="info-block__buttons">
-                    <button>
+                    <button onClick={applyButtonHandler}>
                         Применить
                     </button>
-                    <button>
+                    <button onClick={cancelButtonHandler}>
                         Отмена
                     </button>
                 </div>
             </div>
-
     );
 }
 
