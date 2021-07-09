@@ -3,7 +3,8 @@ import Tree from '@naisutech/react-tree';
 import { useDispatch } from 'react-redux';
 import setSelectedNode from "../redux/actions/nodes";
 import '../scss/tree-block.scss';
-
+import RemoveAddButtonsBlock from "./buttons-block";
+import customTheme from "./tree-theme";
 
 function TreeBlock() {
     const [treeData, setTreeData] = React.useState([]);
@@ -55,7 +56,8 @@ function TreeBlock() {
 
     return (
         <div className="tree-container">
-            <Tree nodes={treeData} onSelect={onSelect} grow/>
+            <Tree nodes={treeData} onSelect={onSelect} grow theme={'custom-theme'} customTheme={customTheme}/>
+            <RemoveAddButtonsBlock/>
         </div>
     );
 }

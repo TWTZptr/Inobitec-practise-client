@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import setSelectedNode from '../redux/actions/nodes';
 import '../scss/info-block.scss';
+import Button from './button';
 
 function InfoBlock() {
     let {ip, label, id, port} = useSelector(node => node);
@@ -14,7 +15,7 @@ function InfoBlock() {
 
     const dispatch = useDispatch();
     const cancelButtonHandler = (event) => {
-        dispatch(setSelectedNode({id: null, label, ip, port}));
+        setLocalState({ip, label, id, port});
     };
 
     const applyButtonHandler = (event) => {
@@ -60,12 +61,8 @@ function InfoBlock() {
                     </label>
                 </div>
                 <div className="info-block__buttons">
-                    <button onClick={applyButtonHandler}>
-                        Применить
-                    </button>
-                    <button onClick={cancelButtonHandler}>
-                        Отмена
-                    </button>
+                    <Button onClickHandle={applyButtonHandler} buttonText="Применить"/>
+                    <Button onClickHandle={cancelButtonHandler} buttonText="Отмена"/>
                 </div>
             </div>
     );
