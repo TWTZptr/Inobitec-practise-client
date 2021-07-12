@@ -1,21 +1,21 @@
 import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import setSelectedNode from '../redux/actions/nodes';
+import setSelectedNode from '../redux/actions/nodeSelect';
 import '../scss/info-block.scss';
 import Button from './button';
 
 function InfoBlock() {
-    let {ip, label, id, port} = useSelector(node => node);
+    let {ip, name, id, port} = useSelector(state => state.selectedNode);
 
-    const [localState, setLocalState] = React.useState({ip, label, id, port});
+    const [localState, setLocalState] = React.useState({ip, name, id, port});
 
     React.useEffect(() => {
-        setLocalState({ip, label, id, port});
-    }, [ip, label, id, port]);
+        setLocalState({ip, name, id, port});
+    }, [ip, name, id, port]);
 
     const dispatch = useDispatch();
     const cancelButtonHandler = (event) => {
-        setLocalState({ip, label, id, port});
+        setLocalState({ip, name, id, port});
     };
 
     const applyButtonHandler = (event) => {
@@ -24,7 +24,7 @@ function InfoBlock() {
 
     const handleLabelChange = (event) => {
         setLocalState((prevState) => {
-            return {...prevState, label: event.target.value};
+            return {...prevState, name: event.target.value};
         });
     };
 
@@ -49,7 +49,7 @@ function InfoBlock() {
                 <div className="node-info">
                     <label className="node-info__field">
                         <div> Имя: </div>
-                        <input value={localState.label} onChange={handleLabelChange}/>
+                        <input value={localState.name} onChange={handleLabelChange}/>
                     </label>
                     <label className="node-info__field">
                         <div>IP:</div>

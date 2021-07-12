@@ -1,6 +1,12 @@
 .tree-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   height: auto;
+  padding: 10px;
+
+  &:first-child {
+    padding-left: 0;
+  }
 }

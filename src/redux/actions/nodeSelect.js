@@ -1,5 +1,5 @@
 const setSelectedNode = (node) => ({
-    type: 'SELECT_ID',
+    type: 'SELECT_NODE',
     payload: node
 });
 
