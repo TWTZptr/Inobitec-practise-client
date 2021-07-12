@@ -1,11 +1,12 @@
 .info-block {
-  background-color: aquamarine;
+  background-color: #d5e3ff;
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 25px;
+  border-radius: 5px;
 
   &__buttons {
     :first-child {
@@ -35,6 +36,7 @@
 button {
   &:hover {
     cursor: pointer;
+    background-color: aliceblue;
   }
 
   border-style: solid;

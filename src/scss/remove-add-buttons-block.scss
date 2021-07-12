@@ -1,8 +1,10 @@
 .remove-add-buttons-block {
-  background-color: #2d3439;
+  background-color: #d5e3ff;
   width: 100%;
-  height: 80px;
+  height: auto;
   display: flex;
   justify-content: space-around;
-  padding: 20px;
+  padding: 25px;
+  border-radius: 5px;
+  border-style: none;
 }

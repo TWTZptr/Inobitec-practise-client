@@ -1,17 +1,24 @@
 li {
   list-style-type: none;
-
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 ul {
   padding-left: 10px;
 }
 
-span:hover {
-  cursor: pointer;
-  background-color: aquamarine;
+span {
+  line-height: 30px;
+  padding: 5px;
+  &:hover {
+    cursor: pointer;
+    background-color: #d5e3ff;
+    border-radius: 3px;
+  }
 }
 
 .selected {
-  background-color: aquamarine;
+  background-color: #d5e3ff;
 }
