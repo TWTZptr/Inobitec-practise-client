@@ -12,9 +12,8 @@ function TreeBlock() {
     React.useEffect(() => {
         if (!rootNode) {
             dispatch(fetchRootNode());
-
         }
-    }, []);
+    }, [rootNode, dispatch]);
 
     return (
         <div className="tree-container">

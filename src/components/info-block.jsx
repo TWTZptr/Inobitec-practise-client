@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {setSelectedNode, updateNode} from '../redux/actions/nodes';
+import {updateNode} from '../redux/actions/nodes';
 import '../scss/info-block.scss';
 import Button from './button';
 
