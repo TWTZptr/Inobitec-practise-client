@@ -1,23 +1,24 @@
 import React from 'react';
-
+import {fetchRootNode} from '../redux/actions/nodes';
+import {useDispatch, useSelector} from 'react-redux';
 import '../scss/tree-block.scss';
 import RemoveAddButtonsBlock from "./buttons-block";
 import TreeNode from './tree-node';
 
 function TreeBlock() {
-    const [rootNode, setRootNode] = React.useState(null);
-
+    const rootNode = useSelector(state=>state.nodes.find(item => item.parent_id === null));
+    const dispatch = useDispatch();
+    
     React.useEffect(() => {
-        fetch('http://localhost:3001/api/v1')
-            .then(res => res.json())
-            .then(json => {
-                setRootNode(json);
-            })
+        if (!rootNode) {
+            dispatch(fetchRootNode());
+
+        }
     }, []);
 
     return (
         <div className="tree-container">
-            {rootNode ? <TreeNode nodeInfo={rootNode}/> : 'Loading...'}
+            {rootNode ? <TreeNode nodeInfo={rootNode} open/> : 'Loading...'}
             <RemoveAddButtonsBlock/>
         </div>
     );

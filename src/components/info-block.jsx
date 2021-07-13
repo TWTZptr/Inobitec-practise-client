@@ -6,7 +6,6 @@ import Button from './button';
 
 function InfoBlock() {
     let {ip, name, id, port, parent_id} = useSelector(state => state.selectedNode);
-
     const [localState, setLocalState] = React.useState({ip, name, port});
 
     React.useEffect(() => {
@@ -15,7 +14,6 @@ function InfoBlock() {
 
     const dispatch = useDispatch();
     const cancelButtonHandler = (event) => {
-        console.log(1);
         setLocalState({ip, name, port});
     };
 
@@ -25,9 +23,7 @@ function InfoBlock() {
             id,
             parent_id
         };
-        console.log(editedNode);
         dispatch(updateNode(editedNode));
-        
     };
 
     const handleNameChange = (event) => {

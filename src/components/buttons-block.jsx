@@ -1,7 +1,7 @@
 import React from 'react';
 import '../scss/remove-add-buttons-block.scss'
 import Button from "./button";
-import {addNode, removeNode, setSelectedNode} from '../redux/actions/nodes';
+import {addNode, removeNode, setSelectedNode, fetchRemoveNode} from '../redux/actions/nodes';
 import {useSelector, useDispatch} from 'react-redux';
 
 function RemoveAddButtonsBlock() {
@@ -10,7 +10,7 @@ function RemoveAddButtonsBlock() {
 
     const handleDelete = (event) => {
         if (nodeToDelete.parent_id !== null) {
-            dispatch(removeNode(nodeToDelete));
+            dispatch(fetchRemoveNode(nodeToDelete.id));
             dispatch(setSelectedNode({id:null}));
         }
     }

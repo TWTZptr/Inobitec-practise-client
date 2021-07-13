@@ -1,22 +1,21 @@
 import React from 'react';
 import '../scss/tree-node.scss';
+import {fetchChildNodes} from '../redux/actions/nodes';
 import {useDispatch, useSelector} from 'react-redux';
 import {setSelectedNode, addNode} from "../redux/actions/nodes";
 
-function TreeNode ({nodeInfo}) {
-    const [opened, setOpened] = React.useState(false);
+function TreeNode ({nodeInfo, open}) {
+    const [opened, setOpened] = React.useState(open);
     const dispatch = useDispatch();
 
-    const selectedId = useSelector(state => state.selectedNode.id);
-    const children = useSelector(state=>state.nodes.filter(item => item.parent_id === nodeInfo.id));
-
+    const isSelected = useSelector(state => state.selectedNode.id) === nodeInfo.id;
+    const children = useSelector(state => {
+        return state.nodes.filter(item => item.parent_id === nodeInfo.id);
+    });
+    
     React.useEffect(() => {
         if (children.length === 0) {
-            fetch(`http://localhost:3001/api/v1/${nodeInfo.id}`)
-                .then(res => res.json())
-                .then(json => {
-                    json.forEach(item => dispatch(addNode(item)));
-                });
+            dispatch(fetchChildNodes(nodeInfo.id));
         }
     }, []);
 
@@ -30,7 +29,7 @@ function TreeNode ({nodeInfo}) {
 
     return (
         <ul className="tree-node">
-            <li>{children.length ? <span onClick={handleOpenClick}>{opened ? "▼" : "▶"}</span> : <span>X</span>}  <span className={selectedId === nodeInfo.id ? "selected" : ""} onClick={handleSelectClick}>{nodeInfo.name}</span></li>
+            <li>{children.length ? <span onClick={handleOpenClick}>{opened ? "▼" : "▶"}</span> : <span>X</span>}  <span className={isSelected ? "selected" : ""} onClick={handleSelectClick}>{nodeInfo.name}</span></li>
             {opened ? children.map(item => <TreeNode key={item.id} nodeInfo={item}/>) : ''}
         </ul>
     );
