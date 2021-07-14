@@ -5,7 +5,8 @@ const initState = {
         ip: '',
         port: 0
     },
-    nodes: []
+    nodes: [],
+    menuAddMode: false // info-block mode
 };
 
 const nodesReducer = (state = initState, action) => {
@@ -15,6 +16,12 @@ const nodesReducer = (state = initState, action) => {
                 ...state,
                 selectedNode: action.payload
             };
+
+        case 'CHANGE_MENU_MODE':
+            return {
+                ...state,
+                menuAddMode: action.payload
+            }
 
         case 'ADD_NODE':
             return {
@@ -40,18 +47,6 @@ const nodesReducer = (state = initState, action) => {
         default:
             return state;
     }
-
-    /*if (action.type === 'UPDATE_NODE') {
-        const indexOfNodeToUpdate = state.nodes.findIndex(item => item.id === action.payload.id);
-        console.log(state.nodes);
-        console.log(action.payload);
-        const newArray = state.nodes;
-        newArray[indexOfNodeToUpdate] = action.payload;
-        return {
-            ...state,
-            nodes: newArray
-        }
-    }*/
 }
 
 export default nodesReducer;

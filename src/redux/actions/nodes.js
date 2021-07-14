@@ -34,12 +34,22 @@ export const fetchUpdateNode = (node) => (dispatch) => {
             if (res) {
                 dispatch(updateNode(node))
             }
-        })
+        });
+}
+
+export const fetchAddNode = (node) => (dispatch) => {
+    Api.createNode(node)
+        .then(res => {
+            if (res) {
+                console.log(res);
+                dispatch(addNode(res));
+            }
+        });
 }
 
 export const updateNode = (node) => ({
-   type: 'UPDATE_NODE',
-   payload: node
+    type: 'UPDATE_NODE',
+    payload: node
 });
 
 export const addNode = (node) => ({
@@ -48,6 +58,13 @@ export const addNode = (node) => ({
 });
 
 export const removeNode = (nodeId) => ({
-   type: 'REMOVE_NODE',
+    type: 'REMOVE_NODE',
     payload: {nodeId}
 });
+
+export const setAddMode = (mode) => {
+    return {
+        type: 'CHANGE_MENU_MODE',
+        payload: mode
+    }
+}

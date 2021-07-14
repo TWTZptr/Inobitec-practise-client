@@ -1,6 +1,6 @@
 import React from 'react';
 import '../scss/tree-node.scss';
-import {fetchChildNodes} from '../redux/actions/nodes';
+import {fetchChildNodes, setAddMode} from '../redux/actions/nodes';
 import {useDispatch, useSelector} from 'react-redux';
 import {setSelectedNode, addNode} from "../redux/actions/nodes";
 
@@ -24,6 +24,7 @@ function TreeNode ({nodeInfo, open}) {
     }
 
     const handleSelectClick = (e) => {
+        dispatch(setAddMode(false));
         dispatch(setSelectedNode(nodeInfo));
     }
 
