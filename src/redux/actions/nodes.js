@@ -23,11 +23,19 @@ export const fetchRemoveNode = (nodeId) => (dispatch) => {
     Api.removeNode(nodeId)
         .then(res => {
             if (res) {
-                console.log(res);
                 dispatch(removeNode(nodeId))
             }
         });
 };
+
+export const fetchUpdateNode = (node) => (dispatch) => {
+    Api.updateNode(node)
+        .then(res => {
+            if (res) {
+                dispatch(updateNode(node))
+            }
+        })
+}
 
 export const updateNode = (node) => ({
    type: 'UPDATE_NODE',

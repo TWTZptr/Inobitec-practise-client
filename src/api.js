@@ -23,12 +23,13 @@ export default class Api {
     }
 
     static async updateNode(node) {
-        const formData = new FormData();
-        formData.append(node);
-
+        console.log(node);
         const res = await fetch(`http://localhost:3001/api/v1/nodes/${node.id}`, {
-           method: 'PUT',
-           body: formData
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(node)
         });
 
         if (res.status === 200) {
@@ -43,8 +44,8 @@ export default class Api {
         formData.append(node);
 
         const res = await fetch('http://localhost:3001/api/v1/nodes', {
-           method: 'POST',
-           body: formData
+            method: 'POST',
+            body: formData
         });
 
         if (res.status === 200) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {updateNode} from '../redux/actions/nodes';
+import {fetchUpdateNode} from '../redux/actions/nodes';
 import '../scss/info-block.scss';
 import Button from './button';
 
@@ -23,7 +23,7 @@ function InfoBlock() {
             id,
             parent_id
         };
-        dispatch(updateNode(editedNode));
+        dispatch(fetchUpdateNode(editedNode));
     };
 
     const handleNameChange = (event) => {

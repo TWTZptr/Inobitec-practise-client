@@ -28,6 +28,15 @@ const nodesReducer = (state = initState, action) => {
                 nodes: state.nodes.filter(item => item.id !== action.payload.nodeId)
             }
 
+        case 'UPDATE_NODE':
+            const indexOfNodeToUpdate = state.nodes.findIndex(item => item.id === action.payload.id);
+            const newArray = state.nodes;
+            newArray[indexOfNodeToUpdate] = action.payload;
+            return {
+                ...state,
+                nodes: newArray
+            }
+
         default:
             return state;
     }
