@@ -1,9 +1,29 @@
 import Api from '../../api';
 
+export const fetchAddNode = (node) => (dispatch) => {
+    Api.createNode(node)
+        .then(res => {
+            console.log(res);
+            if (res) {
+                dispatch(addNode(res));
+            }
+        });
+}
+
 export const fetchRootNode = () => (dispatch) => {
     Api.getRootNode()
         .then(res => {
-            dispatch(addNode(res));
+            if (res) {
+                dispatch(addNode(res));
+            } else { // root node does not exist
+                const initRootNode = {
+                    parent_id: null,
+                    name: 'root node',
+                    port: 1,
+                    ip: '1.1.1.1'
+                };
+                dispatch(fetchAddNode(initRootNode));
+            }
         });
 };
 
@@ -28,15 +48,6 @@ export const fetchUpdateNode = (node) => (dispatch) => {
         .then(res => {
             if (res) {
                 dispatch(updateNode(node))
-            }
-        });
-}
-
-export const fetchAddNode = (node) => (dispatch) => {
-    Api.createNode(node)
-        .then(res => {
-            if (res) {
-                dispatch(addNode(res));
             }
         });
 }
