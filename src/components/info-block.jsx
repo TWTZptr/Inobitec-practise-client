@@ -1,12 +1,15 @@
 import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {fetchUpdateNode, fetchAddNode} from '../redux/actions/nodes';
+import {setAddMode, setSelectedNode} from '../redux/actions/ui';
 import '../scss/info-block.scss';
 import Button from './button';
 
+const INPUT_INVALID_TIMEOUT = 2000;
+
 function InfoBlock() {
-    const selectedNode = useSelector(state => state.selectedNode);
-    const addMode = useSelector(state => state.menuAddMode);
+    const selectedNode = useSelector(({ui}) => ui.selectedNode);
+    const addMode = useSelector(({ui}) => ui.menuAddMode);
     const dispatch = useDispatch();
 
     const [localState, setLocalState] = React.useState({
@@ -14,6 +17,9 @@ function InfoBlock() {
         name: selectedNode.name,
         port: selectedNode.port
     });
+    
+    const [ipInvalidIndicator, setIpInvalidIndicator] = React.useState(false);
+    const [portInvalidIndicator, setPortInvalidIndicator] = React.useState(false);
 
     React.useEffect(() => {
         if (addMode) {
@@ -24,17 +30,23 @@ function InfoBlock() {
     React.useEffect(() => {
         setLocalState({ip: selectedNode.ip, name: selectedNode.name, port: selectedNode.port});
     }, [selectedNode.ip, selectedNode.name, selectedNode.port]);
-
+    
     const isValid = () => {
-        if (+localState.port < 1 || +localState.port > 65535 || !Number.isInteger(+localState.port)) {
-            return false;
-        }
-
+        let result = true;
+        // ip valid check
         if (!/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(localState.ip)) {
-            return false;
+            setIpInvalidIndicator(true);
+            setTimeout(() => setIpInvalidIndicator(false), INPUT_INVALID_TIMEOUT);
+            result = false;
         }
-
-        return true;
+        // port valid check
+        if (+localState.port < 1 || +localState.port > 65535 || !Number.isInteger(+localState.port)) {
+            setPortInvalidIndicator(true);
+            setTimeout(() => setPortInvalidIndicator(false), INPUT_INVALID_TIMEOUT);
+            result = false;
+        }
+        
+        return result;
     }
 
     const cancelButtonHandler = (event) => {
@@ -49,6 +61,8 @@ function InfoBlock() {
                     ...localState
                 };
                 dispatch(fetchAddNode(newNode));
+                dispatch(setSelectedNode({id: null}));
+                dispatch(setAddMode(false));
             } else {
                 const editedNode = {
                     ...localState,
@@ -85,17 +99,18 @@ function InfoBlock() {
             :
             <div className="info-block">
                 <div className="node-info">
+                    <span className="node-info__mode">{addMode ? "Добавление" : "Редактирование"}</span>
                     <label className="node-info__field">
                         <div> Имя:</div>
                         <input value={localState.name} onChange={handleNameChange}/>
                     </label>
                     <label className="node-info__field">
                         <div>IP:</div>
-                        <input value={localState.ip} onChange={handleIpChange}/>
+                        <input value={localState.ip} onChange={handleIpChange} className={ipInvalidIndicator ? "invalid-indicator" : ""}/>
                     </label>
                     <label className="node-info__field">
                         <div>Port:</div>
-                        <input value={localState.port} onChange={handlePortChange}/>
+                        <input value={localState.port} onChange={handlePortChange} className={portInvalidIndicator ? "invalid-indicator" : ""}/>
                     </label>
                 </div>
                 <div className="info-block__buttons">

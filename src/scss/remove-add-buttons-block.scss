@@ -8,3 +8,10 @@
   border-radius: 5px;
   border-style: none;
 }
+
+.inactive {
+  opacity: 0.3;
+  &:hover {
+    cursor: default;
+  }
+}

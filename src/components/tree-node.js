@@ -1,23 +1,23 @@
 import React from 'react';
 import '../scss/tree-node.scss';
-import {fetchChildNodes, setAddMode} from '../redux/actions/nodes';
+import {fetchChildNodes} from '../redux/actions/nodes';
 import {useDispatch, useSelector} from 'react-redux';
-import {setSelectedNode, addNode} from "../redux/actions/nodes";
+import {setSelectedNode, setAddMode} from "../redux/actions/ui";
 
 function TreeNode ({nodeInfo, open}) {
     const [opened, setOpened] = React.useState(open);
     const dispatch = useDispatch();
 
-    const isSelected = useSelector(state => state.selectedNode.id) === nodeInfo.id;
-    const children = useSelector(state => {
-        return state.nodes.filter(item => item.parent_id === nodeInfo.id);
+    const isSelected = useSelector(({ui}) => ui.selectedNode.id) === nodeInfo.id;
+    const children = useSelector(({nodes}) => {
+        return nodes.filter(item => item.parent_id === nodeInfo.id);
     });
     
     React.useEffect(() => {
         if (children.length === 0) {
             dispatch(fetchChildNodes(nodeInfo.id));
         }
-    }, []);
+    }, [children.length, dispatch, nodeInfo.id]);
 
     const handleOpenClick = (e) => {
         setOpened(prev => !prev);

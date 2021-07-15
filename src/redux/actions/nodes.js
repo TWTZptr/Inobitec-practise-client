@@ -1,10 +1,5 @@
 import Api from '../../api';
 
-export const setSelectedNode = (node) => ({
-    type: 'SELECT_NODE',
-    payload: node
-});
-
 export const fetchRootNode = () => (dispatch) => {
     Api.getRootNode()
         .then(res => {
@@ -41,7 +36,6 @@ export const fetchAddNode = (node) => (dispatch) => {
     Api.createNode(node)
         .then(res => {
             if (res) {
-                console.log(res);
                 dispatch(addNode(res));
             }
         });
@@ -61,10 +55,3 @@ export const removeNode = (nodeId) => ({
     type: 'REMOVE_NODE',
     payload: {nodeId}
 });
-
-export const setAddMode = (mode) => {
-    return {
-        type: 'CHANGE_MENU_MODE',
-        payload: mode
-    }
-}
