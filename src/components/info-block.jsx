@@ -11,7 +11,9 @@ function InfoBlock() {
     const selectedNode = useSelector(({ui}) => ui.selectedNode);
     const addMode = useSelector(({ui}) => ui.menuAddMode);
     const dispatch = useDispatch();
-
+    const [showAddedMsg, setShowAddedMsg] = React.useState(false);
+    const [showEditedMsg, setShowEditedMsg] = React.useState(false);
+    
     const [localState, setLocalState] = React.useState({
         ip: selectedNode.ip,
         name: selectedNode.name,
@@ -63,6 +65,8 @@ function InfoBlock() {
                 dispatch(fetchAddNode(newNode));
                 dispatch(setSelectedNode({id: null}));
                 dispatch(setAddMode(false));
+                setShowAddedMsg(true);
+                setTimeout(() => setShowAddedMsg(false), 3000);
             } else {
                 const editedNode = {
                     ...localState,
@@ -70,6 +74,8 @@ function InfoBlock() {
                     parent_id: selectedNode.parent_id
                 };
                 dispatch(fetchUpdateNode(editedNode));
+                setShowEditedMsg(true);
+                setTimeout(() => setShowEditedMsg(false), 3000);
             }
         }
     };
@@ -95,6 +101,7 @@ function InfoBlock() {
     return (
         selectedNode.id === null ?
             <div className="info-block">
+                {showAddedMsg ? (<span className="node-info__msg">Добавлено</span>) : ""}
             </div>
             :
             <div className="info-block">
@@ -112,6 +119,7 @@ function InfoBlock() {
                         <div>Port:</div>
                         <input value={localState.port} onChange={handlePortChange} className={portInvalidIndicator ? "invalid-indicator" : ""}/>
                     </label>
+                    {showEditedMsg ? (<span className="node-info__msg">Изменения сохранены</span>) : ""}
                 </div>
                 <div className="info-block__buttons">
                     <Button onClick={applyButtonHandler} buttonText="Применить"/>

@@ -10,7 +10,6 @@ export default class Api {
     }
 
     static async removeNode(nodeId) {
-        console.log(nodeId);
         const res = await fetch(`http://localhost:3001/api/v1/nodes/${nodeId}`, {
             method: 'DELETE',
         });
@@ -39,7 +38,6 @@ export default class Api {
     }
 
     static async createNode(node) {
-        console.log(JSON.stringify(node));
         const res = await fetch('http://localhost:3001/api/v1/nodes', {
             method: 'POST',
             headers: {

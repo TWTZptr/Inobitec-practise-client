@@ -20,6 +20,17 @@
   flex-direction: column;
   font-size: 28px;
 
+  &__msg {
+    margin-top: 20px;
+    background-color: #51ff51;
+    font-size: 32px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 40px;
+    border-style: none;
+    border-radius: 5px;
+  }
+
   &__mode {
     font-size: 32px;
     text-align: center;
