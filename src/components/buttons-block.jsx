@@ -6,24 +6,26 @@ import {useSelector, useDispatch} from 'react-redux';
 import {setSelectedNode, setAddMode} from "../redux/actions/ui";
 
 function RemoveAddButtonsBlock() {
-    const nodeToDelete = useSelector(({ui}) => ui.selectedNode);
+    const selectedNode = useSelector(({ui}) => ui.selectedNode);
     const dispatch = useDispatch();
 
     const handleDelete = (event) => {
-        if (nodeToDelete.parent_id !== null) {
-            dispatch(fetchRemoveNode(nodeToDelete.id));
+        if (selectedNode.parent_id !== null) {
+            dispatch(fetchRemoveNode(selectedNode.id));
             dispatch(setSelectedNode({id:null}));
         }
     }
 
     const handleAdd = (event) => {
-        dispatch(setAddMode(true));
+        if (selectedNode.id) {
+            dispatch(setAddMode(true));
+        }
     }
 
     return (
         <div className="remove-add-buttons-block">
             <Button onClick={handleAdd} buttonText="Добавить"/>
-            <Button onClick={handleDelete} className={nodeToDelete.parent_id === null ? "inactive" : ""} buttonText="Удалить"/>
+            <Button onClick={handleDelete} className={selectedNode.parent_id === null ? "inactive" : ""} buttonText="Удалить"/>
         </div>
     );
 }

@@ -3,7 +3,6 @@ import Api from '../../api';
 export const fetchAddNode = (node) => (dispatch) => {
     Api.createNode(node)
         .then(res => {
-            console.log(res);
             if (res) {
                 dispatch(addNode(res));
             }

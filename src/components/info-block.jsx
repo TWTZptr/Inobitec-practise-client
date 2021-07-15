@@ -22,6 +22,7 @@ function InfoBlock() {
     
     const [ipInvalidIndicator, setIpInvalidIndicator] = React.useState(false);
     const [portInvalidIndicator, setPortInvalidIndicator] = React.useState(false);
+    const [nameInvalidIndicator, setNameInvalidIndicator] = React.useState(false);
 
     React.useEffect(() => {
         if (addMode) {
@@ -45,6 +46,12 @@ function InfoBlock() {
         if (+localState.port < 1 || +localState.port > 65535 || !Number.isInteger(+localState.port)) {
             setPortInvalidIndicator(true);
             setTimeout(() => setPortInvalidIndicator(false), INPUT_INVALID_TIMEOUT);
+            result = false;
+        }
+
+        if (localState.name === '') {
+            setNameInvalidIndicator(true);
+            setTimeout(() => setNameInvalidIndicator(false), INPUT_INVALID_TIMEOUT);
             result = false;
         }
         
@@ -109,7 +116,7 @@ function InfoBlock() {
                     <span className="node-info__mode">{addMode ? "Добавление" : "Редактирование"}</span>
                     <label className="node-info__field">
                         <div> Имя:</div>
-                        <input value={localState.name} onChange={handleNameChange}/>
+                        <input value={localState.name} onChange={handleNameChange} className={nameInvalidIndicator ? "invalid-indicator" : ""}/>
                     </label>
                     <label className="node-info__field">
                         <div>IP:</div>
