@@ -27,8 +27,14 @@ function InfoBlock() {
     React.useEffect(() => {
         if (addMode) {
             setLocalState({ip: '', port: '', name: ''});
+        } else {
+            setLocalState({
+                ip: selectedNode.ip,
+                name: selectedNode.name,
+                port: selectedNode.port
+            });
         }
-    }, [addMode]);
+    }, [addMode, selectedNode.ip, selectedNode.name, selectedNode.port]);
 
     React.useEffect(() => {
         setLocalState({ip: selectedNode.ip, name: selectedNode.name, port: selectedNode.port});
