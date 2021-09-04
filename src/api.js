@@ -14,11 +14,7 @@ export default class Api {
             method: 'DELETE',
         });
 
-        if (res.status === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return res.status === 200;
     }
 
     static async updateNode(node) {
@@ -30,11 +26,7 @@ export default class Api {
             body: JSON.stringify(node)
         });
 
-        if (res.status === 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return res.status === 200;
     }
 
     static async createNode(node) {

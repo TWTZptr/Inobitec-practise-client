@@ -1,7 +1,6 @@
 import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {fetchUpdateNode, fetchAddNode} from '../redux/actions/nodes';
-import {setAddMode, setSelectedNode} from '../redux/actions/ui';
+import {setAddMode, addNode, updateNode, resetSelect} from '../redux/toolkitSlice';
 import '../scss/info-block.scss';
 import Button from './button';
 
@@ -75,8 +74,8 @@ function InfoBlock() {
                     parent_id: selectedNode.id,
                     ...localState
                 };
-                dispatch(fetchAddNode(newNode));
-                dispatch(setSelectedNode({id: null}));
+                dispatch(addNode(newNode));
+                dispatch(resetSelect());
                 dispatch(setAddMode(false));
                 setShowAddedMsg(true);
                 setTimeout(() => setShowAddedMsg(false), 3000);
@@ -86,7 +85,7 @@ function InfoBlock() {
                     id: selectedNode.id,
                     parent_id: selectedNode.parent_id
                 };
-                dispatch(fetchUpdateNode(editedNode));
+                dispatch(updateNode(editedNode));
                 setShowEditedMsg(true);
                 setTimeout(() => setShowEditedMsg(false), 3000);
             }
