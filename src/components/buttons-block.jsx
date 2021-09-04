@@ -1,9 +1,8 @@
 import React from 'react';
 import '../scss/remove-add-buttons-block.scss'
 import Button from "./button";
-import {fetchRemoveNode} from '../redux/actions/nodes';
 import {useSelector, useDispatch} from 'react-redux';
-import {setSelectedNode, setAddMode} from "../redux/actions/ui";
+import {setAddMode, removeNode, resetSelect} from "../redux/toolkitSlice";
 
 function RemoveAddButtonsBlock() {
     const selectedNode = useSelector(({ui}) => ui.selectedNode);
@@ -11,8 +10,8 @@ function RemoveAddButtonsBlock() {
 
     const handleDelete = (event) => {
         if (selectedNode.parent_id !== null) {
-            dispatch(fetchRemoveNode(selectedNode.id));
-            dispatch(setSelectedNode({id:null}));
+            dispatch(removeNode(selectedNode.id));
+            dispatch(resetSelect());
         }
     }
 
@@ -21,6 +20,8 @@ function RemoveAddButtonsBlock() {
             dispatch(setAddMode(true));
         }
     }
+
+    console.log(selectedNode.parent_id);
 
     return (
         <div className="remove-add-buttons-block">

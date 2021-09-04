@@ -1,8 +1,7 @@
 import React from 'react';
 import '../scss/tree-node.scss';
-import {fetchChildNodes} from '../redux/actions/nodes';
+import {fetchChildNodes, setAddMode, setSelectedNode} from '../redux/toolkitSlice';
 import {useDispatch, useSelector} from 'react-redux';
-import {setSelectedNode, setAddMode} from "../redux/actions/ui";
 
 function TreeNode ({nodeInfo, open}) {
     const [opened, setOpened] = React.useState(open);
