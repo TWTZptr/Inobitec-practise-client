@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.idea/workspace.xml
+.idea/discord.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/watcherTasks.xml
+.idea/shelf/Uncommitted_changes_before_Update_at_01_09_2021_17_32__Default_Changelist_.xml
+.idea/shelf/Uncommitted_changes_before_Update_at_01_09_2021_17_32_[Default_Changelist]/shelved.patch
+yarn.lock
+.idea/shelf/Uncommitted_changes_before_Update_at_01_09_2021_17_32_[Default_Changelist]/shelved.patch
+.idea

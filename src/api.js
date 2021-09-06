@@ -1,16 +1,16 @@
 export default class Api {
     static async getRootNode() {
-        const res = await fetch('http://localhost:3001/api/v1/nodes');
+        const res = await fetch('/api/v1/nodes');
         return await res.json();
     }
 
     static async getChildren(parentId) {
-        const res = await fetch(`http://localhost:3001/api/v1/nodes/${parentId}/children`);
+        const res = await fetch(`/api/v1/nodes/${parentId}/children`);
         return await res.json();
     }
 
     static async removeNode(nodeId) {
-        const res = await fetch(`http://localhost:3001/api/v1/nodes/${nodeId}`, {
+        const res = await fetch(`/api/v1/nodes/${nodeId}`, {
             method: 'DELETE',
         });
 
@@ -18,7 +18,7 @@ export default class Api {
     }
 
     static async updateNode(node) {
-        const res = await fetch(`http://localhost:3001/api/v1/nodes/${node.id}`, {
+        const res = await fetch(`/api/v1/nodes/${node.id}`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -30,7 +30,7 @@ export default class Api {
     }
 
     static async createNode(node) {
-        const res = await fetch('http://localhost:3001/api/v1/nodes', {
+        const res = await fetch('/api/v1/nodes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
